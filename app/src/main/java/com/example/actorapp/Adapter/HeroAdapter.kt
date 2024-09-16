@@ -18,9 +18,13 @@ class HeroAdapter(private val heroList:ArrayList<Hero>): RecyclerView.Adapter<He
             LayoutInflater.from(parent.context),
             parent, false)
         return HeroViewHolder(view)
+
+    }
+    override fun getItemCount(): Int {
+        return heroList.size
     }
 
-    override fun onBindViewHolder(holder: HeroAdapter.HeroViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:HeroViewHolder, position: Int) {
         holder.binding.apply {
             nameid.text = heroList[position].heroName
             titleid.text = "Movie Name: " + heroList[position].filmTitle
@@ -30,7 +34,7 @@ class HeroAdapter(private val heroList:ArrayList<Hero>): RecyclerView.Adapter<He
         holder.itemView.setOnClickListener {
             onClick?.invoke(heroList[position])
         }
-        holder.itemView.setOnClickListener {
+        holder.itemView.setOnLongClickListener {
             AlertDialog.Builder(holder.itemView.context)
                 .setTitle("Romove hero")
                 .setMessage("Are you sure you want to remove?")
@@ -45,7 +49,5 @@ class HeroAdapter(private val heroList:ArrayList<Hero>): RecyclerView.Adapter<He
     }
 
 
-    override fun getItemCount(): Int {
-        return heroList.size
-    }
+
 }
